@@ -20,7 +20,7 @@
 #define CurrentSense A1
 #define CurrentSense10 A2
 #define VoltageSense A0
-#define Shutdown 11
+#define ShutdownPin 11
 #define Sync 5
 #define VFB 10
 
@@ -44,6 +44,8 @@ public:
     bool setCurrent(float current);
     float getVoltage();
     bool setVoltage(float voltage);
+    bool shutdown();
+    bool startUp();
 
 protected:
 
