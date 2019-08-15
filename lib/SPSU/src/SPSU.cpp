@@ -21,15 +21,32 @@
 */
 bool SPSU::begin()
 {
-    pinMode(Shutdown, OUTPUT);
+    pinMode(ShutdownPin, OUTPUT);
     pinMode(CurrentAdjust, OUTPUT);
     pinMode(CurrentSense, INPUT);
     pinMode(CurrentSense10, INPUT);
     pinMode(VoltageSense, INPUT);
     pinMode(VFB, INPUT);
-    digitalWrite(Shutdown, LOW);
+    digitalWrite(ShutdownPin, LOW);
     analogWrite(CurrentAdjust, 0);
-    if analogRead(VoltageSense)==0;
+    if (analogRead(VoltageSense)==0)
+        return EXIT_SUCCESS;
+    else return EXIT_FAILURE;
+}
+bool SPSU::shutdown()
+{
+    digitalWrite(ShutdownPin, LOW);
+    analogWrite(CurrentAdjust, 0);
+    if (analogRead(VoltageSense)==0)
+        return EXIT_SUCCESS;
+    else return EXIT_FAILURE;
+}
+
+bool SPSU::startUp()
+{
+    digitalWrite(ShutdownPin, HIGH);
+    analogWrite(CurrentAdjust, 0);
+    if (analogRead(VoltageSense)==0)
         return EXIT_SUCCESS;
     else return EXIT_FAILURE;
 }
@@ -49,7 +66,7 @@ float SPSU::getCurrent()
     sensorValue = analogRead(CurrentSense);
     voltage  = sensorValue * (Reference / 1023.0);
     current = voltage / currentSenseResistance;
-    LOG("Current: %u", current)
+    LOG("Current: %u", current);
     return current;
 }
 
@@ -59,18 +76,18 @@ float SPSU::getCurrent()
 bool SPSU::setCurrent(float current)
 {
     if(current>10)
-        return EXIT_FAILURE
+        return EXIT_FAILURE;
 
     int analogValue;
 
-    analogValue = (int)(currentScalar*current*currentSenseResistance; // max voltage is 0.01
+    analogValue = (int)(currentScalar*current*currentSenseResistance); // max voltage is 0.01
     analogWrite(CurrentAdjust,analogValue);
 
     // output voltage 0-5 needed voltage is 0-0.1
     // we want current to be 1A so we need voltage to be
     // v=IR, v=Current*0.01;
     // analogValue = v *30 this is the scalar
-    return EXIT_SUCCESS
+    return EXIT_SUCCESS;
 }
 
 /*********************************************************************
@@ -82,7 +99,7 @@ float SPSU::getVoltage()
     float voltage;
     sensorValue = analogRead(VoltageSense);
     voltage  = sensorValue * (Reference / 1023.0);
-    LOG("Voltage: %u", voltage)
+    LOG("Voltage: %u", voltage);
     return voltage;
 }
 
@@ -92,7 +109,7 @@ float SPSU::getVoltage()
 bool SPSU::setVoltage(float voltage)
 {
     if(voltage>15)
-        return EXIT_FAILURE
+        return EXIT_FAILURE;
 
     int analogValue;
 
@@ -103,6 +120,6 @@ bool SPSU::setVoltage(float voltage)
     // we want current to be 1A so we need voltage to be
     // v=IR, v=Current*0.01;
     // analogValue = v *30 this is the scalar
-    return EXIT_SUCCESS
+    return EXIT_SUCCESS;
 
 }
