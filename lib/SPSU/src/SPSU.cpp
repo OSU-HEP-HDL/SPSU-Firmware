@@ -90,7 +90,7 @@ bool SPSU::setCurrent(float current)
     return EXIT_SUCCESS;
 }
 
-bool SPSU::setCurrent(float current)
+int SPSU::setCurrent(float current)
 {
     if(current>8) // Don't burn chips
         return EXIT_FAILURE;
@@ -119,6 +119,7 @@ bool SPSU::setCurrent(float current)
 
         // And now write the analogValue to set requisted current
         analogWrite(CurrentAdjust, analogValue);
+        return analogValue;
 }
 
 /*********************************************************************
