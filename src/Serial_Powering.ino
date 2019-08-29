@@ -30,7 +30,7 @@ void setup() {
 void loop() {
         Serial.println(PowerSupply.getVoltage());
         //PowerSupply.setCurrent(0.05);
-        analogWrite(CurrentAdjust,100);
+        //analogWrite(CurrentAdjust,100);
         Serial.println(PowerSupply.setCurrent(1)); // current in amps
         analogWrite(VFB,180);
         PowerSupply.startUp();
