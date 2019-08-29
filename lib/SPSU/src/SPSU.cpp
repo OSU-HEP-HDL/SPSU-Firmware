@@ -75,23 +75,6 @@ float SPSU::getCurrent()
 *********************************************************************/
 bool SPSU::setCurrent(float current)
 {
-    if(current>10)
-        return EXIT_FAILURE;
-
-    int analogValue;
-
-    analogValue = (int)(currentScalar*current*currentSenseResistance); // max voltage is 0.01
-    analogWrite(CurrentAdjust,analogValue);
-
-    // output voltage 0-5 needed voltage is 0-0.1
-    // we want current to be 1A so we need voltage to be
-    // v=IR, v=Current*0.01;
-    // analogValue = v *30 this is the scalar
-    return EXIT_SUCCESS;
-}
-
-int SPSU::setCurrent(float current)
-{
     if(current>8) // Don't burn chips
         return EXIT_FAILURE;
 
@@ -119,7 +102,7 @@ int SPSU::setCurrent(float current)
 
         // And now write the analogValue to set requisted current
         analogWrite(CurrentAdjust, analogValue);
-        return analogValue;
+        return EXIT_SUCCESS;
 }
 
 /*********************************************************************
