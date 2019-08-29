@@ -5,12 +5,14 @@
  * @Project: SPSU
  * @Filename: SPSU.cpp
  * @Last modified by:   steven
- * @Last modified time: 2018-12-12T14:11:47-07:00
+ * @Last modified time: 2019-08-29T09:57:52-06:00
  */
 
 
 
 #include "SPSU.h"
+
+#define LOG_PRINT(...) Serial.Print(__VA_ARGS__)
 
 /**
    @brief "Description"
@@ -19,6 +21,16 @@
    @post "Post-conditions"
    @return "Returns 0 if successful"
 */
+void SPSU::log(string s)
+{
+    if (LOG) LOG_PRINT(s)
+
+}
+void SPSU::setLogState(bool i)
+{
+    log=i;
+}
+
 bool SPSU::begin()
 {
     pinMode(ShutdownPin, OUTPUT);

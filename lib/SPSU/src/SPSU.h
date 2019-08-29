@@ -5,7 +5,7 @@
  * @Project: SPSU
  * @Filename: SPSU.h
  * @Last modified by:   steven
- * @Last modified time: 2018-12-12T13:44:40-07:00
+ * @Last modified time: 2019-08-29T09:41:44-06:00
  */
 
 #ifndef SPSU_H
@@ -13,6 +13,7 @@
 
 #define ENABLE_LOG4ARDUINO
 #include <log4arduino.h>
+
 
  #include "Arduino.h"
 
@@ -33,6 +34,7 @@ private:
     //float setVoltage = 0;
     const float Reference = 1.024;
     const float currentSenseResistance = 0.01;
+    bool LOG = 1;
 
     const float currentScalar = 30;
     const float voltageScalar = 16; /*! voltageScalar is the scaling factor for voltage divider on votlage sense
@@ -46,6 +48,9 @@ public:
     bool setVoltage(float voltage);
     bool shutdown();
     bool startUp();
+    void log();
+    void setLogState;
+
 
 protected:
 
