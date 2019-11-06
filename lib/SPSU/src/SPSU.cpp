@@ -11,7 +11,6 @@
 
 
 #include "SPSU.h"
-#include <OPC.h>
 
 /**
    @brief "Description"
